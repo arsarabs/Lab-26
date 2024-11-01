@@ -17,6 +17,7 @@ using namespace std::chrono;
 const string FILENAME = "codes.txt";     // Name of the input file containing codes
 const int NUM_ELEMENTS = 20000;         // Total number of elements to process
 const string INSERT_VALUE = "TESTING";  // Value to insert into data structures
+const int SIMULATIONS = 15; //simulations that we need to run
 
 //Function Prototypes
 long long sortList(list<string>& l);
@@ -37,18 +38,20 @@ void display(const vector<string>& operation,
 
 int main() {
 
-    //Conatiners
-    vector<string> v;
-    list<string> l;
-    set<string> s;
 
     //Table
     vector<string> operations = { "Read", "Sort", "Insert", "Delete" };
 
-    //store timing results here for each structure/operation
+    //3-D Arrays for timings ([simulation(s)][operation][data structure])
+        //store timing results here for each structure/operation
     vector<long long> vectorTimes(4, 0);
     vector<long long> listResult(4, 0);
     vector<long long> setResult(4, 0);
+    
+    //Conatiners
+    vector<string> v;
+    list<string> l;
+    set<string> s;
 
     //read
     vectorTimes[0] = readVector(v);
