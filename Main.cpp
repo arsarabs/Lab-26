@@ -44,9 +44,9 @@ int main() {
 
     //3-D Arrays for timings ([simulation(s)][operation][data structure])
         //store timing results here for each structure/operation
-    vector<long long> vectorTimes(4, 0);
-    vector<long long> listResult(4, 0);
-    vector<long long> setResult(4, 0);
+    vector<long long> vectorSums(4, 0);
+    vector<long long> listSums(4, 0);
+    vector<long long> setSums(4, 0);
     
     //need to create a loop tor un 15 simulations
     for (int i = 0; i <= SIMULATIONS; i++) {
@@ -55,8 +55,7 @@ int main() {
         list<string> l;
         set<string> s; 
 
-        //3-D Arrays for timings ([simulation(s)][operation][data structure])
-    //store timing results here for each structure/operation
+ 
         vector<long long> vectorTimes(4, 0);
         vector<long long> listResult(4, 0);
         vector<long long> setResult(4, 0);
@@ -79,10 +78,22 @@ int main() {
         vectorTimes[3] = deleteVector(v);
         listResult[3] = deleteList(l);
         setResult[3] = deleteSet(s);
+
+        for (int j = 0; j < 4; j++) {
+            // Vector
+            if (vectorTimes[j] != -1)
+                vectorSums[j] += vectorTimes[j];
+            // List
+            if (listResult[j] != -1)
+                listSums[j] += listResult[j];
+            // Set
+            if (setResult[j] != -1)
+                setSums[j] += setResult[j];
+        }
+        cout << i << "/" << SIMULATIONS << endl;
     }
-    
-  
-    display(operations, vectorTimes, listResult, setResult);
+   
+    // after Runing the experiment 15 times, we output the average run times of all the races.
 
     return 0;
 }
