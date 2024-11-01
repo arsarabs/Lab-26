@@ -74,9 +74,9 @@ int main() {
     }
 #endif
 //*******************(NOT necessary)**********************************
-
-
-    //START HERE
+    
+//START HERE
+    cout << "SIMULATIONS.... " << endl;
   
     //Table
     vector<string> operations = { "Read", "Sort", "Insert", "Delete" };
@@ -135,7 +135,8 @@ int main() {
             if (setResult[j] != -1)
                 setSums[j] += setResult[j];
         }
-        cout << i << "/" << SIMULATIONS << endl;
+        // Display progress 
+        cout << COLOR_RED << i << "/" << SIMULATIONS << COLOR_RESET << endl;
     }
    
     // after Runing the experiment 15 times, we output the average run times of all the races.
@@ -396,8 +397,6 @@ long long deleteSet(set<string>& s) {
     return duration; // duration in microseconds
 }
 void display(const vector<string>& operation, const vector<long long>& vectorTimes, const vector<long long>& listTimes, const vector<long long>& setTimes) {
-cout << endl;
-
     // header text
     string headerText = " ================ Experiment Results ================";
     string colorCode = "\033[1;36m";  // Bold Cyan
@@ -410,11 +409,7 @@ cout << endl;
     }
     cout << resetCode << endl;  // Reset text formatting and move to next line
     cout << colorCode;
-    for (size_t i = 0; i < headerText.length(); ++i) {
-        cout << "=";
-        std::this_thread::sleep_for(std::chrono::milliseconds(20));
-    }
-    cout << resetCode << "\n\n";
+    
 
     //updated output with iomanip
     cout << left << setw(12) << "Operation"
@@ -453,10 +448,6 @@ cout << endl;
         }
         cout << resetCode << endl;
         cout << endl;
-    }
-    for (size_t i = 0; i < headerText.length(); ++i) {
-        cout << "=";
-        std::this_thread::sleep_for(std::chrono::milliseconds(20));
     }
 }
 
