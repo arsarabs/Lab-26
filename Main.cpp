@@ -7,8 +7,12 @@
 #include <set>               
 #include <fstream>           
 #include <string>            
-#include <iomanip>          
+#include <iomanip>      
+#include <thread>   // For sleep functionality
 #include <algorithm>         // For std::sort
+#ifdef _WIN32
+#include <windows.h> // For Windows-specific console handling
+#endif
 using namespace std;
 using namespace std::chrono;
 
@@ -358,8 +362,33 @@ long long deleteSet(set<string>& s) {
 }
 void display(const vector<string>& operation, const vector<long long>& vectorTimes, const vector<long long>& listTimes, const vector<long long>& setTimes) {
 
-
     cout << endl;
+    // header text
+    string headerText = "=== Experiment Results ===";
+
+    
+    string colorCode = "\033[1;36m";  // Bold Cyan
+    string resetCode = "\033[0m";     // Reset to default
+
+    cout << colorCode;  // Set text color and style
+
+    for (char c : headerText) {
+        cout << c << flush;
+        // Small delay to create the animation effect
+        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    }
+
+    cout << resetCode << endl;  // Reset text formatting and move to next line
+
+   
+    cout << colorCode;
+    for (size_t i = 0; i < headerText.length(); ++i) {
+        cout << "=";
+        std::this_thread::sleep_for(std::chrono::milliseconds(20));
+    }
+    cout << resetCode << "\n\n";
+
+
     //updated output with iomanip
     cout << left << setw(12) << "Operation"
         << right << setw(12) << "Vector"
