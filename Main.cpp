@@ -48,31 +48,40 @@ int main() {
     vector<long long> listResult(4, 0);
     vector<long long> setResult(4, 0);
     
-    //Conatiners
-    vector<string> v;
-    list<string> l;
-    set<string> s;
+    //need to create a loop tor un 15 simulations
+    for (int i = 0; i <= SIMULATIONS; i++) {
+        //Conatiners
+        vector<string> v;
+        list<string> l;
+        set<string> s; 
 
-    //read
-    vectorTimes[0] = readVector(v);
-    listResult[0] = readList(l);
-    setResult[0] = readSet(s);
-    //sort
-    vectorTimes[1] = sortVector(v);
-    listResult[1] = sortList(l);
-    setResult[1] = -1; // this lets us know sort time not applicaable
-    //insert
+        //3-D Arrays for timings ([simulation(s)][operation][data structure])
+    //store timing results here for each structure/operation
+        vector<long long> vectorTimes(4, 0);
+        vector<long long> listResult(4, 0);
+        vector<long long> setResult(4, 0);
 
-    vectorTimes[2] = insertVector(v);
-    listResult[2] = insertList(l);
-    setResult[2] = insertSet(s);
+        //read
+        vectorTimes[0] = readVector(v);
+        listResult[0] = readList(l);
+        setResult[0] = readSet(s);
+        //sort
+        vectorTimes[1] = sortVector(v);
+        listResult[1] = sortList(l);
+        setResult[1] = -1; // this lets us know sort time not applicaable
+        //insert
 
-    //delete
-    vectorTimes[3] = deleteVector(v);
-    listResult[3] = deleteList(l);
-    setResult[3] = deleteSet(s);
-    //output
-    // 
+        vectorTimes[2] = insertVector(v);
+        listResult[2] = insertList(l);
+        setResult[2] = insertSet(s);
+
+        //delete
+        vectorTimes[3] = deleteVector(v);
+        listResult[3] = deleteList(l);
+        setResult[3] = deleteSet(s);
+    }
+    
+  
     display(operations, vectorTimes, listResult, setResult);
 
     return 0;
