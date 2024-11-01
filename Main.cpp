@@ -16,6 +16,19 @@
 using namespace std;
 using namespace std::chrono;
 
+// Define color codes
+const string COLOR_GREEN = "\033[1;32m"; // Bold Green
+const string COLOR_RED = "\033[1;31m";   // Bold Red
+const string COLOR_RESET = "\033[0m";    // Reset to default
+
+// Define an array of color codes for alternating rows
+const vector<string> rowColors = {
+    "\033[1;34m", // Bold Blue
+    "\033[1;36m", // Bold Cyan
+    "\033[1;32m", // Bold Green
+    "\033[1;35m"  // Bold Magenta
+};
+
 //CONSTANTS
 // Constants
 const string FILENAME = "codes.txt";     // Name of the input file containing codes
@@ -41,8 +54,30 @@ void display(const vector<string>& operation,
     const vector<long long>& setTimes);
 
 int main() {
+//*******************(NOT necessary)**********************************
+    //For display 
+      // Enable ANSI escape codes on Windows
+#ifdef _WIN32
+    HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    if (hOut == INVALID_HANDLE_VALUE) {
+        return GetLastError();
+    }
+
+    DWORD dwMode = 0;
+    if (!GetConsoleMode(hOut, &dwMode)) {
+        return GetLastError();
+    }
+
+    dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+    if (!SetConsoleMode(hOut, dwMode)) {
+        return GetLastError();
+    }
+#endif
+//*******************(NOT necessary)**********************************
 
 
+    //START HERE
+  
     //Table
     vector<string> operations = { "Read", "Sort", "Insert", "Delete" };
 
@@ -361,26 +396,19 @@ long long deleteSet(set<string>& s) {
     return duration; // duration in microseconds
 }
 void display(const vector<string>& operation, const vector<long long>& vectorTimes, const vector<long long>& listTimes, const vector<long long>& setTimes) {
+cout << endl;
 
-    cout << endl;
     // header text
-    string headerText = "=== Experiment Results ===";
-
-    
+    string headerText = " ================ Experiment Results ================";
     string colorCode = "\033[1;36m";  // Bold Cyan
     string resetCode = "\033[0m";     // Reset to default
-
-    cout << colorCode;  // Set text color and style
-
+    cout << colorCode;
     for (char c : headerText) {
         cout << c << flush;
         // Small delay to create the animation effect
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
-
     cout << resetCode << endl;  // Reset text formatting and move to next line
-
-   
     cout << colorCode;
     for (size_t i = 0; i < headerText.length(); ++i) {
         cout << "=";
@@ -388,15 +416,21 @@ void display(const vector<string>& operation, const vector<long long>& vectorTim
     }
     cout << resetCode << "\n\n";
 
-
     //updated output with iomanip
     cout << left << setw(12) << "Operation"
         << right << setw(12) << "Vector"
         << right << setw(12) << "List"
         << right << setw(12) << "Set" << endl;
 
+    
     //for loop for display
     for (size_t i = 0; i < operation.size(); ++i) {
+        // Determine the color based on the row index using rowColors
+        string rowColor = rowColors[i % rowColors.size()];
+
+        // Apply the color
+        cout << rowColor;
+
         cout << left << setw(12) << operation[i] << "    ";
 
         if (vectorTimes[i] != -1) {
@@ -417,7 +451,12 @@ void display(const vector<string>& operation, const vector<long long>& vectorTim
         else {
             cout << right << setw(10) << "-1" << "    ";
         }
+        cout << resetCode << endl;
         cout << endl;
+    }
+    for (size_t i = 0; i < headerText.length(); ++i) {
+        cout << "=";
+        std::this_thread::sleep_for(std::chrono::milliseconds(20));
     }
 }
 
