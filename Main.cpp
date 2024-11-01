@@ -47,6 +47,12 @@ int main() {
     vector<long long> vectorSums(4, 0);
     vector<long long> listSums(4, 0);
     vector<long long> setSums(4, 0);
+
+
+    //Average times
+    vector<long long> vectorAverages(4, 0);
+    vector<long long> listAverages(4, 0);
+    vector<long long> setAverages(4, 0);
     
     //need to create a loop tor un 15 simulations
     for (int i = 0; i <= SIMULATIONS; i++) {
@@ -94,6 +100,22 @@ int main() {
     }
    
     // after Runing the experiment 15 times, we output the average run times of all the races.
+
+    for (int i = 0; i < 4; i++) {
+        vectorAverages[i] = vectorSums[i] / SIMULATIONS;
+        listAverages[i] = listSums[i] / SIMULATIONS;
+
+        //In the event where we can't sort
+        if (i == 1) {
+            setAverages[i] = 0;
+        }
+        else {
+            setAverages[i] = setSums[i] / SIMULATIONS;
+        }
+    }
+
+    //dISPLAY
+    display(operations, vectorAverages, listAverages, setAverages);
 
     return 0;
 }
@@ -336,6 +358,8 @@ long long deleteSet(set<string>& s) {
 }
 void display(const vector<string>& operation, const vector<long long>& vectorTimes, const vector<long long>& listTimes, const vector<long long>& setTimes) {
 
+
+    cout << endl;
     //updated output with iomanip
     cout << left << setw(12) << "Operation"
         << right << setw(12) << "Vector"
